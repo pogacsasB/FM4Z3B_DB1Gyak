@@ -1,0 +1,31 @@
+use fm4z3b_db;
+
+1. Legfiatalabb kapitány hajójának márkája
+select márka from hajó where hajó_id = (select id from kapitány where születési_dátum = (select MAX(születési_dátum) from kapitány));
+
+2. Magyar kapitányok
+select id, név from kapitány where nemzetiség = 'magyar';
+
+3. Átlag alatti súlyterheléssel rendelkező hajók
+select hajó_id, súlyterhelés from hajó where súlyterhelés < (select avg(súlyterhelés) from hajó);
+
+4. kikötő országok száma
+select COUNT(ország) from kikötő_helység;
+
+5. textil_termék rakomány száma
+select count(textil_termék) from rakomány_típus where textil_termék = 1;
+
+6. 1970 előtt született kapitányok
+select id, név, születési_dátum from kapitány where YEAR(születési_dátum) < 1970;
+
+7. K betűvel kezdődő kapitányok
+select id, név from kapitány where név like 'K%';
+
+8. Átlagnál hosszabb utak száma
+select count(út_id) from út where út_hossz > (select avg(út_hossz) from út);
+
+9. Ki ment a 10-es úton
+select név from kapitány where id = (select hajó_id from hajó_út where út_id = 10);
+
+10. Azoknak a hajóknak az azonosítója, akik eltudnák vinni 14-es hajó rakományát
+select hajó_id from hajó where súlyterhelés > (select sum(súly) from rakomány where hajó_id = 14);
