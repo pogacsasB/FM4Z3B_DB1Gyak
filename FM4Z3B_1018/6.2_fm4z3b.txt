@@ -1,0 +1,33 @@
+CREATE DATABASE FM4Z3B;
+
+CREATE TABLE Gyártó(
+    adószám INT PRIMARY KEY,
+    név CHAR(30) NOT NULL,
+    telephely VARCHAR(30) NOT NULL
+);
+
+CREATE Termék(
+    tkód INT PRIMARY KEY,
+    név CHAR(50) NOT NULL,
+    eár NUMERIC CHECK(ear > 0) NOT NULL,
+    gyárto CHAR(30) NOT NULL,
+    FOREIGN KEY(gyárto) REFERENCES Gyárto(név)
+);
+
+CREATE TABLE Egységek(
+    áru NUMERIC, 
+    FOREIGN KEY(áru) REFERENCES Termék(tkód),
+    db NUMERIC CHECK(db>0)
+);
+
+CREATE TABLE Komponens(
+    termék NUMERIC, 
+    alkatrész NUMERIC, 
+    FOREIGN KEY(termék) REFERENCES Termék(tkód), 
+    FOREIGN KEY(alkatrész) REFERENCES Alkatrész(akod)
+);
+
+CREATE TABLE Alkatrész(
+    akod NUMERIC PRIMARY KEY, 
+    név VARCHAR(50)
+);
