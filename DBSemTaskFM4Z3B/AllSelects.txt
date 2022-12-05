@@ -1,0 +1,12 @@
+use fm4z3b_db;
+
+select márka from hajó where hajó_id = (select id from kapitány where születési_dátum = (select MAX(születési_dátum) from kapitány));
+select id, név from kapitány where nemzetiség = 'magyar';
+select hajó_id, súlyterhelés from hajó where súlyterhelés < (select avg(súlyterhelés) from hajó);
+select COUNT(ország) from kikötő_helység;
+select count(textil_termék) from rakomány_típus where textil_termék = 1;
+select id, név, születési_dátum from kapitány where YEAR(születési_dátum) < 1970;
+select id, név from kapitány where név like 'K%';
+select count(út_id) from út where út_hossz > (select avg(út_hossz) from út);
+select név from kapitány where id = (select hajó_id from hajó_út where út_id = 10);
+select hajó_id from hajó where súlyterhelés > (select sum(súly) from rakomány where hajó_id = 14);
